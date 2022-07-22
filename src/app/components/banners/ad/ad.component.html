@@ -1,0 +1,16 @@
+<div class="slide-banner">
+  <ion-slides [options]="adOpts" mode="ios">
+    <ng-container *ngFor="let x of ads">
+      <ng-container *ngIf="x.link">
+        <ion-slide (click)="away(x.link)">
+          <img src={{x.downUrl}} alt="">
+        </ion-slide>
+      </ng-container>
+      <ng-container *ngIf="!x.link">
+        <ion-slide (click)="goTo(x.router)" routerLinkActive="router-link-active" >
+          <img src={{x.downUrl}} alt="">
+        </ion-slide>
+      </ng-container>
+    </ng-container>
+  </ion-slides>
+</div>

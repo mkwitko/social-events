@@ -1,0 +1,11 @@
+<div class="slide-banner">
+    <ion-slides [options]="bannerOpts" mode="ios" pager="ios" scrollbar="ios">
+        <ng-container *ngFor="let x of bannerClass.get()">
+            <ng-container *ngIf="x.onOff === true">
+                <ion-slide (click)="away(x.link)">
+                    <img src={{x.downUrl}} alt="">
+                </ion-slide>
+            </ng-container>
+        </ng-container>
+    </ion-slides>
+</div>
