@@ -1,23 +1,37 @@
 ion-label {
-  font-weight: 600;
-  font-size: 1.5vh;
-  padding-left: 0.2vh;
+    font-weight: 600;
+    font-size: 1.5vh;
+    padding-left: 0.2vh;
 }
 
 .active {
-  color: var(--ion-color-secondary);
+    color: var(--ion-color-secondary);
 }
 
 .non-active {
-  color: white;
+    color: black;
+}
+
+.special {
+    background-color: var(--ion-color-primary);
+    padding: 0.8vh;
+    border-radius: 50%;
+    color: white;
 }
 
 ion-icon {
-  font-size: 3vh;
+    font-size: 3.3vh;
+    font-weight: 800;
 }
 
 .flex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+ion-footer {
+    &.footer-md::before {
+        background-image: none;
+    }
 }

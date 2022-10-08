@@ -7,11 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() title = 'Social Events';
+  @Input() title;
   @Input() url;
   @Input() menu = true;
   @Input() modal = false;
   @Input() login = false;
+  @Input() not = false;
 
   constructor(private screen: ScreenService) {}
 

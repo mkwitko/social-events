@@ -1,99 +1,72 @@
+import { Organizations } from './../../classes/organizations/organizations';
 import { UpdateManagerClass } from 'src/app/classes/managers/update-manager';
 import { Injectable } from '@angular/core';
 import { UserClass } from 'src/app/classes/users/user';
+import { UpdateInterface } from 'src/app/interfaces/update/update-interface';
+import { UpdateBoolean } from 'src/app/interfaces/update/update-bool';
+import { EventsClass } from 'src/app/classes/events/events';
+import { User } from 'src/app/interfaces/auth/user';
+import { Chat } from 'src/app/classes/chats/chat';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MasterService {
   constructor(
+    public updateManager: UpdateManagerClass,
     private userClass: UserClass,
-    private updateManager: UpdateManagerClass
+    private organization: Organizations,
+    private events: EventsClass,
+    private chats: Chat
   ) {}
 
-  setUser(id: string) {
-    this.userClass.setClass(id).then((res) => {
-      // if (res) {
-      //   this.push.init();
-      // }
+  makeUpdate(shouldUpdate) {
+    let data: UpdateInterface = {};
+    for (const a in shouldUpdate) {
+      const obj = shouldUpdate[a];
+      if (a !== 'id') {
+        data[a] = obj;
+      }
+    }
+    return data;
+  }
+
+  checkUpdate(shouldUpdate: UpdateInterface): Promise<any> {
+    return new Promise((resolve) => {
+      const data = this.makeUpdate(shouldUpdate);
+      let shouldUpdateFinal: any = [];
+      const oldData = this.updateManager.getOld();
+      if (oldData && Object.keys(data).length > 0) {
+        data.Usuarios !== oldData.Usuarios
+          ? (shouldUpdateFinal.Usuarios = true)
+          : (shouldUpdateFinal.Usuarios = false);
+        data.Orgs !== oldData.Orgs
+          ? (shouldUpdateFinal.Orgs = true)
+          : (shouldUpdateFinal.Orgs = false);
+        data.Events !== oldData.Events
+          ? (shouldUpdateFinal.Events = true)
+          : (shouldUpdateFinal.Events = false);
+        resolve(shouldUpdateFinal);
+      } else {
+        resolve(false);
+      }
     });
   }
 
-  // makeUpdate(shouldUpdate) {
-  //   console.log(shouldUpdate);
-  //   let data: UpdateInterface = {};
-  //   for (const a in shouldUpdate) {
-  //     const obj = shouldUpdate[a];
-  //     if (a !== 'id') {
-  //       data[a] = obj;
-  //     }
-  //   }
-  //   return data;
-  // }
-
-  // checkUpdate(shouldUpdate: UpdateInterface): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     const data = this.makeUpdate(shouldUpdate);
-  //     console.log(data);
-  //     let shouldUpdateFinal: any = [];
-  //     const oldData = this.updateManager.getOld();
-  //     if (oldData && Object.keys(data).length > 0) {
-  //       data.Banner !== oldData.Banner
-  //         ? (shouldUpdateFinal.Banner = true)
-  //         : (shouldUpdateFinal.Banner = false);
-
-  //       data.Conveniencia !== oldData.Conveniencia
-  //         ? (shouldUpdateFinal.Conveniencia = true)
-  //         : (shouldUpdateFinal.Conveniencia = false);
-
-  //       data.Elenco !== oldData.Elenco
-  //         ? (shouldUpdateFinal.Elenco = true)
-  //         : (shouldUpdateFinal.Elenco = false);
-
-  //       data.Noticia !== oldData.Noticia
-  //         ? (shouldUpdateFinal.Noticia = true)
-  //         : (shouldUpdateFinal.Noticia = false);
-
-  //       data.Playlist !== oldData.Playlist
-  //         ? (shouldUpdateFinal.Playlist = true)
-  //         : (shouldUpdateFinal.Playlist = false);
-
-  //       data.Propaganda !== oldData.Propaganda
-  //         ? (shouldUpdateFinal.Propaganda = true)
-  //         : (shouldUpdateFinal.Propaganda = false);
-
-  //       data.PlaylistExclusiva !== oldData.PlaylistExclusiva
-  //         ? (shouldUpdateFinal.PlaylistExclusiva = true)
-  //         : (shouldUpdateFinal.PlaylistExclusiva = false);
-  //       resolve(shouldUpdateFinal);
-  //     } else {
-  //       resolve(false);
-  //     }
-  //   });
-  // }
-
-  // set() {
-  //   this.updateManager.setClass().then((shouldUpdate: UpdateInterface) => {
-  //     this.checkUpdate(shouldUpdate).then((res: UpdateBoolean) => {
-  //       console.log(res);
-  //       this.bannerclass.setClass(shouldUpdate !== false ? res.Banner : false);
-  //       this.adClass.setClass(shouldUpdate !== false ? res.Propaganda : false);
-  //       this.adconvClass.setClass(
-  //         shouldUpdate !== false ? res.Conveniencia : false
-  //       );
-  //       this.playlistClass.setClass(
-  //         shouldUpdate !== false ? res.Playlist : false
-  //       );
-  //       this.noticiaClass.setClass(
-  //         shouldUpdate !== false ? res.Noticia : false
-  //       );
-  //       this.noticiaLengthClass.setClass(
-  //         shouldUpdate !== false ? res.Noticia : false
-  //       );
-  //       this.elencoClas.setClass(shouldUpdate !== false ? res.Elenco : false);
-  //       this.youtubeApi.setClass();
-  //     });
-  //   });
-  //   this.apiFootball.setClass();
-  // }
+  set(userId) {
+    this.updateManager.setClass().then((shouldUpdate: UpdateInterface) => {
+      this.checkUpdate(shouldUpdate).then((res: UpdateBoolean) => {
+        this.userClass.setAll(shouldUpdate !== false ? res.Usuarios : false);
+        this.userClass.setSingle(userId, true).then((user: User) => {
+          this.chats.setClass(userId);
+          this.events.setClass(shouldUpdate !== false ? res.Events : false);
+          if (user.role === 3) {
+            this.organization.setClass(
+              shouldUpdate !== false ? res.Orgs : false
+            );
+          }
+        });
+      });
+    });
+  }
 }

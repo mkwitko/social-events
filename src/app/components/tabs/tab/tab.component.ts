@@ -7,57 +7,67 @@ import { Router } from '@angular/router';
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
 })
-export class TabComponent{
-
+export class TabComponent {
   public tabs = [
     {
       name: 'Home',
-      icon: 'home-sharp',
+      icon: 'search-sharp',
       path: 'home',
-      active: false
+      active: false,
     },
     {
-      name: 'Notícias',
-      icon: 'newspaper-sharp',
-      path: 'news',
-      active: false
+      name: 'Eventos',
+      icon: 'people-outline',
+      path: 'events-user-home',
+      active: false,
+    },
+    {
+      name: 'Novos',
+      icon: 'add-sharp',
+      path: 'matchs-home',
+      active: false,
+      special: true,
     },
     {
       name: 'Conveniência',
-      icon: 'wallet-sharp',
-      path: 'conv',
-      active: false
+      icon: 'chatbox-ellipses-outline',
+      path: 'matchs-home',
+      active: false,
     },
     {
       name: 'Perfil',
-      icon: 'person-sharp',
-      path: 'profile',
-      active: false
+      icon: 'person-outline',
+      path: 'profile-home',
+      active: false,
     },
   ];
 
-  constructor(
-    private navigation: NavigationService,
-    private router: Router
-  )
-  {
+  constructor(private navigation: NavigationService, private router: Router) {
     this.activeTab();
   }
 
-  goTo(url: string)
-  {
+  goTo(url: string) {
     this.navigation.goTo(url);
   }
 
-  activeTab()
-  {
-    for(const a of this.tabs)
-    {
-      if(this.router.url === '/'+a.path)
-      {
+  activeTab() {
+    for (const a of this.tabs) {
+      if (this.router.url === '/' + a.path) {
         a.active = true;
       } else {
         a.active = false;
+      }
+    }
+  }
+
+  getCustomCss(item) {
+    if (item.special) {
+      return 'special';
+    } else {
+      if (item.active === true) {
+        return 'active';
+      } else {
+        return 'non-active';
       }
     }
   }

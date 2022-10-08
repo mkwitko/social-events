@@ -1,3 +1,5 @@
+import { MasterService } from './../master/master.service';
+import { UpdateManagerClass } from 'src/app/classes/managers/update-manager';
 import { User } from 'src/app/interfaces/auth/user';
 import { Injectable } from '@angular/core';
 import {
@@ -71,31 +73,67 @@ export class CrudService {
       userEmail: yourAsset.userEmail ? yourAsset.userEmail : '',
       userName: yourAsset.userName ? yourAsset.userName : '',
       userCreatedAt: yourAsset.userCreatedAt ? yourAsset.userCreatedAt : '',
+      role: 1,
     });
   }
 
   add<T>(collection: AngularFirestoreCollection, yourAsset: T): Promise<any> {
-    return collection.add(yourAsset).catch((err) => {
-      this.screen.presentToast(this.translate.verifyErrors(err.code));
+    return new Promise((resolve, reject) => {
+      return collection
+        .add(yourAsset)
+        .then((res) => {
+          // this.screen.presentToast(
+          //   'Adicionado com sucesso',
+          //   'Sucesso!',
+          //   'sucess'
+          // );
+          resolve(res);
+        })
+        .catch((err) => {
+          this.screen.presentToast(this.translate.verifyErrors(err.code));
+          reject(err);
+        });
     });
   }
 
   update<T>(collection: AngularFirestoreCollection, yourAsset: T, id: string) {
-    return collection
-      .doc<any>(id)
-      .update(yourAsset)
-      .catch((err) => {
-        this.screen.presentToast(this.translate.verifyErrors(err.code));
-      });
+    return new Promise((resolve, reject) => {
+      return collection
+        .doc<any>(id)
+        .update(yourAsset)
+        .then((res) => {
+          // this.screen.presentToast(
+          //   'Atualizado com sucesso',
+          //   'Sucesso!',
+          //   'sucess'
+          // );
+          resolve(res);
+        })
+        .catch((err) => {
+          this.screen.presentToast(this.translate.verifyErrors(err.code));
+          reject(err);
+        });
+    });
   }
 
-  delete(collection: AngularFirestoreCollection, id: string) {
-    return collection
-      .doc(id)
-      .delete()
-      .catch((err) => {
-        this.screen.presentToast(this.translate.verifyErrors(err.code));
-      });
+  delete(collection: AngularFirestoreCollection, id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      return collection
+        .doc(id)
+        .delete()
+        .then((res) => {
+          // this.screen.presentToast(
+          //   'Deletado com sucesso',
+          //   'Sucesso!',
+          //   'sucess'
+          // );
+          resolve(res);
+        })
+        .catch((err) => {
+          this.screen.presentToast(this.translate.verifyErrors(err.code));
+          reject(err);
+        });
+    });
   }
 
   //******* Uploads ******//
@@ -103,32 +141,39 @@ export class CrudService {
   async upload(
     bannerId: string,
     file: string,
-    storageFolder: string
+    storageFolder: string,
+    userId: string
   ): Promise<any> {
+    await this.screen.presentLoading();
     return new Promise((resolve, reject) => {
       if (file && file.length > 0) {
         try {
           this.storage
             .ref(storageFolder)
+            .child(userId)
             .child(bannerId)
             .put(file[0])
             .then(() => {
+              this.screen.dismissloading();
               resolve(
                 this.storage
-                  .ref(storageFolder + '/' + bannerId)
+                  .ref(storageFolder + '/' + userId + '/' + bannerId)
                   .getDownloadURL()
                   .toPromise()
               );
             })
             .catch((error) => {
+              this.screen.dismissloading();
               console.log(error);
               reject(false);
             });
         } catch (error) {
+          this.screen.dismissloading();
           console.log(error);
           reject(false);
         }
       } else {
+        this.screen.dismissloading();
         console.log('Else ');
         reject(false);
       }

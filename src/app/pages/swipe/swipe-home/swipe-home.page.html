@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<ion-content>
+    <ion-card *ngIf="show">
+        <ion-card-header>
+            <ion-card-subtitle>{{show.avatar}}</ion-card-subtitle>
+            <ion-card-title>{{show.userName}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+            <ion-button (click)="like()" expand="block" shape="round">
+                Like
+            </ion-button>
+            <ion-button (click)="dislike()" expand="block" fill="clear" shape="round">
+                Dislike
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+
+<app-tab></app-tab>

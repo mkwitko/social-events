@@ -29,10 +29,11 @@ export class NavigationService {
     window.open(url);
   }
 
-  rotaId(rota: string, id: string) {
+  rotaId(rota: string, id: string, event?: string) {
     const navExtra: NavigationExtras = {
       queryParams: {
         id,
+        event,
       },
     };
     this.router.navigate(['/' + rota], navExtra);

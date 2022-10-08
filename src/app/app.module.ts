@@ -62,7 +62,10 @@ import { SharedModule } from './modules/shared/shared/shared.module';
 
     //Toast
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      preventDuplicates: true,
+    }), // ToastrModule added
 
     //Modules
     SharedModule,

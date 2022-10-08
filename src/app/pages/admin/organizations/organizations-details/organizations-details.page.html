@@ -1,0 +1,20 @@
+<app-header [url]="url"></app-header>
+
+<ion-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <ion-item lines="full">
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input formControlName="name" type="text" required></ion-input>
+        </ion-item>
+        <!-- Error messages -->
+        <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+            Nome é obrigatório.
+        </span>
+
+        <ion-button class="ion-float-right ion-padding" type="submit">
+            Enviar
+        </ion-button>
+    </form>
+</ion-content>
+
+<app-tab></app-tab>

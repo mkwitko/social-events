@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<ion-content>
+    <ng-container *ngIf="userClass.get()">
+        <ion-list>
+            <ng-container *ngFor="let each of userClass.get().Matchs">
+                <ion-item lines="full" button (click)="goTo(each)">
+                    <ion-avatar slot="start">
+                        <img *ngIf="userClass.finder(each.with).avatar" [src]="userClass.finder(each.with).avatar">
+                        <img *ngIf="!userClass.finder(each.with).avatar" src="../../../../../assets/icon/favicon.png">
+                    </ion-avatar>
+                    <ion-label>
+                        <ion-text color="primary">
+                            <h1>{{userClass.finder(each.with).userName}}</h1>
+                        </ion-text>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </ion-list>
+    </ng-container>
+</ion-content>
+
+<app-tab></app-tab>

@@ -1,0 +1,15 @@
+<app-header [url]="url"></app-header>
+
+<ion-content>
+    <ng-container *ngIf="event">
+        <ion-button *ngIf="!hasCheckin" (click)="checkin()" expand="block">
+            Eu vou!
+        </ion-button>
+
+        <ion-button *ngIf="hasCheckin" (click)="find()" expand="block">
+            Encontrar pessoas
+        </ion-button>
+    </ng-container>
+</ion-content>
+
+<app-tab></app-tab>

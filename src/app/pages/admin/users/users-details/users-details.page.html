@@ -1,0 +1,37 @@
+<app-header [url]="url"></app-header>
+
+<ion-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <ion-item lines="full">
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input readonly formControlName="name" type="text" required></ion-input>
+        </ion-item>
+        <!-- Error messages -->
+        <span class="error ion-padding" *ngIf="errorControl.name.errors?.required">
+            Nome é obrigatório.
+        </span>
+
+        <ion-item lines="full">
+            <ion-label position="floating">Cargo</ion-label>
+            <ion-select value="{{user.role ? user.role : 1}}" formControlName="role">
+                <ion-select-option [value]="1">Usuário</ion-select-option>
+                <ion-select-option [value]="2">Organizador de Eventos</ion-select-option>
+                <ion-select-option [value]="3">Administrador</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item lines="full">
+            <ion-label position="floating">Organização</ion-label>
+            <ion-select value="" formControlName="orgId">
+                <ion-select-option value="">Nenhum</ion-select-option>
+                <ion-select-option *ngFor="let item of organization.get()" value="{{item.id}}">{{item.name}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-button class="ion-float-right ion-padding" type="submit">
+            Enviar
+        </ion-button>
+    </form>
+</ion-content>
+
+<app-tab></app-tab>

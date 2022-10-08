@@ -1,3 +1,4 @@
+import { CrudService } from './../crud/crud.service';
 import { ScreenService } from './../screen/screen.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { User } from 'src/app/interfaces/auth/user';
@@ -44,31 +45,6 @@ export class AuthService {
           user.userEmail.trim(),
           user.password.trim()
         )
-          // .then((info) => {
-          //   const id = info.user.uid;
-          //   const email = info.user.email;
-          //   const createdAt = info.user.metadata.creationTime;
-          //   console.log('Info  - ', info);
-          //   this.userClass.getHttp(id).then((res) => {
-          //     if (!res) {
-          //       const user: User = {
-          //         userId: id,
-          //         userEmail: email,
-          //         userName: null,
-          //         password: null,
-          //         avatar: null,
-          //         cpf: null,
-          //         telefone: null,
-          //         userCreatedAt: Date.parse(createdAt),
-          //         status: null,
-          //         ultimoContrato: null,
-          //         token: null,
-          //       };
-          //       this.userClass.add(user, id, false);
-          //       console.log('Added to db - ', user);
-          //     }
-          //   });
-          // })
           .catch((err) => {
             this.screen.presentToast(this.translante.verifyErrors(err.code));
           })

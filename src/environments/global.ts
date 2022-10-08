@@ -14,8 +14,16 @@ export const global = {
   version: '1.0.0',
   firebasePath: {
     users: 'Usuarios',
+    org: 'Organizacoes',
+    events: 'Eventos',
+    chat: 'Chats',
   },
   cachePath: {
     users: 'Usuarios',
+    allUsers: 'Todos-Usuarios',
+    org: 'Organizacoes',
+    chat: 'Chats',
+    events: 'Eventos',
+    eventsOrg: 'Eventos - Org',
   },
 };

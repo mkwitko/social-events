@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<ion-content>
+    <ng-container *ngIf="chat && chat.messages && chat.messages.length > 0">
+        <ion-grid fixed>
+            <ion-row *ngFor="let messages of chat.messages">
+                <ion-col *ngIf="messages.sender === user.userId" size="9" class="message other">
+                    <b>{{user.userName}}</b><br>
+                    <span>{{messages.message}}</span><br>
+                    <div class="time ion-text-right">
+                        {{messages.createdAt | date : 'short'}}
+                    </div>
+                </ion-col>
+                <ion-col *ngIf="messages.sender !== user.userId" offset="3" size="9" class="message mine">
+                    <b>{{userClass.get().userName}}</b><br>
+                    <span>{{messages.message}}</span><br>
+                    <div class="time ion-text-right">
+                        {{messages.createdAt | date : 'short'}}
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="light">
+        <ion-grid fixed>
+            <ion-row>
+                <ion-col size="10">
+                    <ion-textarea [(ngModel)]="message" autoGrow class="message-input" placeholder="Mande algo engraçado (:"></ion-textarea>
+                </ion-col>
+                <ion-col size="2">
+                    <ion-button (click)="send()" class="msg-btn" color="primary" expand="block" fill="clear" shape="round">
+                        <ion-icon slot="icon-only" name="navigate-sharp"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>
