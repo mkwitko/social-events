@@ -112,7 +112,6 @@ export class Organizations {
 
   update(object, id?): Promise<any> {
     return new Promise((resolve, reject) => {
-      console.log(object, id);
       this.crud
         .update(this.collection, object, id ? id : object.id)
         .then(() => {

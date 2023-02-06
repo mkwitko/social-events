@@ -35,9 +35,7 @@ export class ChatPage implements OnDestroy {
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params.id && params.event) {
-        console.log(params.id);
         const chat: ChatInt = this.chatClass.find(params.id);
-        console.log(chat);
         if (
           this.chatClass.get() &&
           this.userClass.getAll() &&
@@ -49,7 +47,6 @@ export class ChatPage implements OnDestroy {
             .get(this.chatClass.collection, this.chat, chat.id)
             .subscribe({
               next: (res) => {
-                console.log('update -', res);
                 this.chat = res;
                 if (!res) {
                   this.back();

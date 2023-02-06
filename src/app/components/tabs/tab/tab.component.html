@@ -1,12 +1,9 @@
-<ion-footer class="ion-no-border">
-    <ion-toolbar>
-        <div class="flex">
-            <ng-container *ngFor="let item of tabs">
-                <ion-button fill="clear" mode="ios" expand="block" (click)="goTo(item.path)">
-                    <ion-icon [ngClass]="getCustomCss(item)" name="{{item.icon}}"></ion-icon>
-                    <!-- <ion-label class="ion-text-center" [ngClass]="item.active === true ? 'active' : 'non-active'">{{item.name}}</ion-label> -->
-                </ion-button>
-            </ng-container>
-        </div>
-    </ion-toolbar>
-</ion-footer>
+<ion-footer>
+    <div class="btm-nav">
+        <ng-container *ngFor="let item of tabs">
+            <button (click)="goTo(item.path)" [ngClass]="getCustomCss(item)" class="text-primary">
+                <ion-icon slot="icon-only" name="{{item.icon}}"></ion-icon>
+            </button>
+        </ng-container>
+    </div>
+</ion-footer>22

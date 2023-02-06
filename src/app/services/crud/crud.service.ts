@@ -164,17 +164,14 @@ export class CrudService {
             })
             .catch((error) => {
               this.screen.dismissloading();
-              console.log(error);
               reject(false);
             });
         } catch (error) {
           this.screen.dismissloading();
-          console.log(error);
           reject(false);
         }
       } else {
         this.screen.dismissloading();
-        console.log('Else ');
         reject(false);
       }
     });

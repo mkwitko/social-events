@@ -3,19 +3,29 @@
 <ion-content>
     <ng-container *ngIf="userClass.get()">
         <ion-list>
-            <ng-container *ngFor="let each of userClass.get().Matchs">
-                <ion-item lines="full" button (click)="goTo(each)">
-                    <ion-avatar slot="start">
-                        <img *ngIf="userClass.finder(each.with).avatar" [src]="userClass.finder(each.with).avatar">
-                        <img *ngIf="!userClass.finder(each.with).avatar" src="../../../../../assets/icon/favicon.png">
-                    </ion-avatar>
-                    <ion-label>
-                        <ion-text color="primary">
-                            <h1>{{userClass.finder(each.with).userName}}</h1>
-                        </ion-text>
-                    </ion-label>
-                </ion-item>
-            </ng-container>
+            <!-- <ng-container *ngFor="let each of userClass.get().Matchs">
+               
+            </ng-container> -->
+            <div class="flex flex-col m-4">
+                <app-search></app-search>
+
+                <div class="matches">
+                    <app-subtitle text="Meus Matches"></app-subtitle>
+                    <div class="flex">
+                        <div class="carousel carousel-center">
+                            <ng-container *ngFor="let item of [0,1,2,3,4,5,6]">
+                                <app-matchs></app-matchs>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="chats">
+                    <app-subtitle text="Minhas Conversas"></app-subtitle>
+                    <ng-container *ngFor="let item of [0,1,2,3,4,5]">
+                        <app-chat-match></app-chat-match>
+                    </ng-container>
+                </div>
+            </div>
         </ion-list>
     </ng-container>
 </ion-content>

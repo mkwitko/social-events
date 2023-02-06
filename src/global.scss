@@ -20,14 +20,13 @@
  defaults for Tailwind
 */
 
-@import './styles/tailwind/base.css';
 
 /* Basic CSS for apps built with Ionic */
 
 @import '~@ionic/angular/css/structure.css';
 @import '~@ionic/angular/css/typography.css';
 @import '~@ionic/angular/css/display.css';
-@import './styles/tailwind/components.css';
+// @import './styles/tailwind/components.css';
 
 /* Optional CSS utils that can be commented out */
 
@@ -36,11 +35,33 @@
 // @import '~@ionic/angular/css/text-alignment.css';
 // @import '~@ionic/angular/css/text-transformation.css';
 // @import '~@ionic/angular/css/flex-utils.css';
-@import './styles/tailwind/utilities.css';
+@import './../node_modules/tailwindcss/base.css';
+@import './../node_modules/tailwindcss/utilities.css';
+@import './../node_modules/tailwindcss/components.css';
 @import "src/styles/toast.scss";
 ion-searchbar.search {
-    --background: transparent;
-    --placeholder-color: black;
+    --background: hsl(var(--b1));
+    --placeholder-color: hsl(var(--sc));
+    --icon-color: hsl(var(--sc));
+    color: hsl(var(--sc));
+    --cancel-button-color: hsl(var(--sc));
+    --clear-button-color: hsl(var(--sc));
     --placeholder-font-weight: 800;
     --placeholder-opacity: 0.7;
+}
+
+ion-content {
+    --ion-background-color: hsl(var(--b1));
+}
+
+h1,
+h2,
+h3,
+p,
+svg,
+a,
+ion-input,
+ion-label {
+    color: hsl(var(--sc)) !important;
+    --color: hsl(var(--sc)) !important;
 }

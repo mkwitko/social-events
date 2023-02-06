@@ -13,6 +13,7 @@ import { ChatInt } from 'src/app/interfaces/chats/chat-int';
 import { UserClass } from '../users/user';
 import { User } from 'src/app/interfaces/auth/user';
 import { EventsInt } from 'src/app/interfaces/events/events-int';
+import { EventsClass } from '../events/events';
 
 @Injectable()
 export class Chat {
@@ -31,7 +32,8 @@ export class Chat {
     private translate: TranslateService,
     private cache: CacheService,
     private updateM: UpdateManagerClass,
-    private userClass: UserClass
+    private userClass: UserClass,
+    private events: EventsClass
   ) {
     this.collection = this.crud.collectionConstructor(this.ref);
   }
@@ -42,6 +44,7 @@ export class Chat {
         this.delete(a.id);
       }
       this.userClass.hardReset();
+      this.events.hardReset();
     });
   }
 
@@ -218,7 +221,6 @@ export class Chat {
     return new Promise((resolve, reject) => {
       this.getAllMy(id)
         .then((http) => {
-          console.log('change', http);
           this.set(http);
           this.setCache(http);
           this.subAll.unsubscribe();

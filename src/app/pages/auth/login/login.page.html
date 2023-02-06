@@ -18,17 +18,17 @@
                         <ion-label position="floating">Senha</ion-label>
                         <ion-input [(ngModel)]="userLogin.password" type="password"></ion-input>
                     </ion-item>
-                    <ion-button (click)="login()" class="ion-margin-top" color="primary" expand="block">
-                        Login
-                    </ion-button>
-                    <ion-button (click)="changeSlide('next')" expand="block" color="light">
-                        Cadastrar
-                    </ion-button>
+                    <button (click)="login()" class="btn btn-primary w-72">
+                        <p>Login</p>
+                    </button>
+                    <button (click)="changeSlide('next')" class="btn btn-secondary w-72">
+                        <p>Cadastrar</p>
+                    </button>
                     <ion-button (click)="loginGuest()" expand="block" fill="clear">
-                        Entrar como convidado
+                        <p>Entrar como Convidado</p>
                     </ion-button>
                     <ion-button (click)="goTo('forgot')" size="small" expand="block" fill="clear" shape="round">
-                        Esqueci minha senha
+                        <p>Esqueci minha senha</p>
                     </ion-button>
                 </div>
             </ion-slide>
@@ -37,7 +37,7 @@
                 <div class="ion-padding">
                     <ion-item class="ion-margin-top">
                         <ion-label position="floating">Nome</ion-label>
-                        <ion-input [(ngModel)]="userRegister.userName" type="text"></ion-input>
+                        <ion-input [(ngModel)]="userRegister.userName" type="email"></ion-input>
                     </ion-item>
                     <ion-item class="ion-margin-top">
                         <ion-label position="floating">E-mail</ion-label>
@@ -48,15 +48,15 @@
                         <ion-input [(ngModel)]="userRegister.password" type="password"></ion-input>
                     </ion-item>
                     <ion-item class="ion-margin-top">
-                        <ion-label position="floating">Confirme sua Senha</ion-label>
+                        <ion-label position="floating">Confirmar Senha</ion-label>
                         <ion-input [(ngModel)]="confirmPassword" type="password"></ion-input>
                     </ion-item>
-                    <ion-button (click)="register()" class="ion-margin-top" color="primary" expand="block">
-                        Cadastrar
-                    </ion-button>
-                    <ion-button (click)="changeSlide('prev')" expand="block" color="light">
-                        Voltar
-                    </ion-button>
+                    <button (click)="register()" class="btn btn-primary w-72">
+                        <p>Cadastrar</p>
+                    </button>
+                    <button (click)="changeSlide('prev')" class="btn btn-secondary w-72">
+                        <p>Voltar</p>
+                    </button>
                 </div>
             </ion-slide>
         </ion-slides>

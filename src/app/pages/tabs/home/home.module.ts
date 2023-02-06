@@ -11,6 +11,7 @@ import { HomePage } from './home.page';
 import { MyCustomTab } from 'src/app/components/tabs/tab/tab.module';
 import { MySkeletonBanner } from 'src/app/components/skeleton/skeleton-banner/skeleton-banner.module';
 import { MyCustomCardEvent } from 'src/app/components/events/card/card.module';
+import { MyCustomSearch } from 'src/app/components/search/search/search.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MyCustomCardEvent } from 'src/app/components/events/card/card.module';
     MyCustomTab,
     MySkeletonBanner,
     MyCustomCardEvent,
+    MyCustomSearch,
   ],
   declarations: [HomePage],
 })

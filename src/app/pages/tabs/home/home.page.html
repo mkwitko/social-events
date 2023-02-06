@@ -1,24 +1,28 @@
 <app-header></app-header>
 <ion-content>
-    <ion-searchbar animated mode="ios" type="text" class="search" [debounce]="1000" placeholder="Buscar Eventos"></ion-searchbar>
-    <ng-container *ngIf="events.get()">
-        <ng-container *ngIf="events.get().length > 0">
-            <ion-list>
-                <ng-container *ngFor="let event of events.get()">
-                    <app-card></app-card>
+    <div class="m-4">
+        <app-search></app-search>
+        <ng-container *ngIf="events.get()">
+            <ng-container *ngIf="events.get().length > 0">
+                <ion-list>
+                    <ng-container *ngFor="let event of events.get()">
+                        <div class="mx-2 mt-4">
+                            <app-card [item]="event"></app-card>
+                        </div>
+                    </ng-container>
+                </ion-list>
+            </ng-container>
+            <ion-button (click)="reset()" expand="block" shape="round">
+                HARD RESET
+            </ion-button>
+            <ng-container *ngIf="events.get().length === 0">
+                <ng-container *ngFor="let item of [0,1,2,3]">
+                    <div class="ion-padding">
+                        <app-skeleton-banner></app-skeleton-banner>
+                    </div>
                 </ng-container>
-            </ion-list>
-        </ng-container>
-        <!-- <ion-button (click)="reset()" expand="block" shape="round">
-            HARD RESET
-        </ion-button> -->
-        <ng-container *ngIf="events.get().length === 0">
-            <ng-container *ngFor="let item of [0,1,2,3]">
-                <div class="ion-padding">
-                    <app-skeleton-banner></app-skeleton-banner>
-                </div>
             </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
 </ion-content>
 <app-tab></app-tab>

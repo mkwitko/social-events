@@ -36,6 +36,19 @@ export class EventsClass {
     this.collection = this.crud.collectionConstructor(this.ref);
   }
 
+  hardReset() {
+    for (const a of this.value) {
+      let change = false;
+      if (a.checkin && a.checkin.length > 0) {
+        a.checkin = [];
+        change = true;
+      }
+      if (change) {
+        this.update(a);
+      }
+    }
+  }
+
   getAllHttp() {
     return new Promise((resolve) => {
       this.subAll = this.crud.getAll(this.collection).subscribe({
@@ -195,10 +208,20 @@ export class EventsClass {
   findCheckin(event: EventsInt, id) {
     for (const a of event.checkin) {
       if (a.userId === id) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
+  }
+
+  findUserEvents(id) {
+    let events = [];
+    for (const event of this.get()) {
+      if (this.findCheckin(event, id)) {
+        events.push(event);
+      }
+    }
+    return events;
   }
 
   setEvents(shouldUpdate: boolean): Promise<any> {

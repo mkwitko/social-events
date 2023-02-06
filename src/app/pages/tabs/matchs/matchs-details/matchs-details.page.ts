@@ -26,7 +26,6 @@ export class MatchsDetailsPage {
     this.route.queryParams.subscribe((params) => {
       if (this.userClass.getAll() && params.id) {
         this.user = this.userClass.finder(params.id);
-        console.log(this.user);
         this.event = this.eventClass.finder(params.event);
         if (!this.user) {
           this.back();

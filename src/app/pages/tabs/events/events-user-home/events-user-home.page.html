@@ -1,28 +1,26 @@
 <app-header></app-header>
 <ion-content>
-    <ng-container *ngIf="events.get()">
-        <ng-container *ngIf="events.get().length > 0">
-            <ion-list>
-                <ng-container *ngFor="let event of events.get()">
-                    <ion-card (click)="goTo(event.id)">
-                        <ion-card-header>
-                            <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
-                            <ion-card-title>Awesome Title</ion-card-title>
-                        </ion-card-header>
-                        <ion-card-content>
-                            Awesome content
-                        </ion-card-content>
-                    </ion-card>
+    <div class="m-4">
+        <ng-container *ngIf="_events">
+            <ng-container *ngIf="_events.length > 0">
+                <app-search></app-search>
+                <app-subtitle text="Meus Eventos"></app-subtitle>
+                <ion-list>
+                    <ng-container *ngFor="let event of _events">
+                        <div class="mx-2 mt-4">
+                            <app-card [item]="event" [checkin]="true"></app-card>
+                        </div>
+                    </ng-container>
+                </ion-list>
+            </ng-container>
+            <ng-container *ngIf="_events.length === 0">
+                <ng-container *ngFor="let item of [0,1,2,3]">
+                    <div class="ion-padding">
+                        <app-skeleton-banner></app-skeleton-banner>
+                    </div>
                 </ng-container>
-            </ion-list>
-        </ng-container>
-        <ng-container *ngIf="events.get().length === 0">
-            <ng-container *ngFor="let item of [0,1,2,3]">
-                <div class="ion-padding">
-                    <app-skeleton-banner></app-skeleton-banner>
-                </div>
             </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
 </ion-content>
 <app-tab></app-tab>

@@ -1,21 +1,51 @@
 <app-header></app-header>
 
 <ion-content>
-    <ion-card *ngIf="show">
-        <ion-card-header>
-            <ion-card-subtitle>{{show.avatar}}</ion-card-subtitle>
-            <ion-card-title>{{show.userName}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-            <ion-button (click)="like()" expand="block" shape="round">
-                Like
-            </ion-button>
-            <ion-button (click)="dislike()" expand="block" fill="clear" shape="round">
-                Dislike
-            </ion-button>
-        </ion-card-content>
-    </ion-card>
+    <ng-container *ngIf="show">
+        <div class="mx-auto my-0 mt-3 h-96">
+            <div class="p-3 flex flex-col items-center">
+                <div class="tphoto rounded-lg shadow-lg">
+                    <img src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="w-full user-image " title="tphoto" alt="Tinder Photo" />
+
+                    <div class="flex justify-between">
+                        <div class="text-xl float-left p-4">
+                            <h3 class="inline">{{show.userName}}</h3>
+                            <p class="font-light inline ml-2">27</p>
+                        </div>
+                    </div>
+
+                    <div class="pl-4 font-light">
+                        <p>Foi em 3 festas esse mês!</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center w-full mt-12">
+                    <label class="swap swap-flip text-7xl">
+      
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" />
+                        
+                        <div class="swap-on m-4">😇</div>
+                        <div (click)="dislike()" class="swap-off m-4">
+                            <ion-icon class="dlike" slot="icon-only" name="close-sharp"></ion-icon>
+                        </div>
+                      </label>
+                    <label class="swap swap-flip text-7xl">
+      
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" />
+                        
+                        <div class="swap-on m-4">😈</div>
+                        <div (click)="like()" class="swap-off m-4">
+                            <ion-icon class="like" slot="icon-only" name="heart-sharp"></ion-icon>
+                        </div>
+                      </label>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!show">
+        <p>Parece que nÃo tem ninguém por aqui!</p>
+    </ng-container>
 </ion-content>
 
 <app-tab></app-tab>

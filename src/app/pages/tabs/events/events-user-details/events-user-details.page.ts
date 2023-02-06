@@ -14,6 +14,9 @@ import { EventsInt } from 'src/app/interfaces/events/events-int';
 export class EventsUserDetailsPage {
   public url = 'events-user-home';
   public event: EventsInt;
+  public check = false;
+
+  private id;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +26,9 @@ export class EventsUserDetailsPage {
   ) {
     this.route.queryParams.subscribe((params) => {
       if (params.id && events.get().length > 0) {
+        this.id = params.id;
         this.event = this.events.finder(params.id);
+        this.hasCheckin();
       } else {
         this.back();
       }
@@ -31,7 +36,10 @@ export class EventsUserDetailsPage {
   }
 
   hasCheckin() {
-    return this.events.findCheckin(this.event, this.userClass.get().userId);
+    this.check = this.events.findCheckin(
+      this.event,
+      this.userClass.get().userId
+    );
   }
 
   checkin() {
@@ -39,7 +47,7 @@ export class EventsUserDetailsPage {
     this.event.checkin.push(this.makeCheckin());
     this.events.update(this.event).then(() => {
       this.userClass.update(this.userClass.get()).then(() => {
-        this.back();
+        this.navigation.rotaId('swipe-home', this.id);
       });
     });
   }

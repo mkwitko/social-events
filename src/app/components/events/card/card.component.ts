@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-card',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-
-  constructor() { }
+  @Input() item;
+  @Input() checkin = false;
+  constructor(private nav: NavigationService) {}
 
   ngOnInit() {}
 
+  goTo(id) {
+    this.nav.rotaId('events-user-details', id);
+  }
 }

@@ -1,9 +1,8 @@
 <ion-app>
     <ion-split-pane contentId="menu-content" when="xl">
-        <ion-menu class="menu" contentId="menu-content" side="start" type="overlay">
+        <!-- <ion-menu class="menu" contentId="menu-content" side="start" type="overlay">
             <ion-content>
                 <div class="menu-header-bg"></div>
-
                 <ng-container *ngIf="userClass.get()">
                     <div class="header-content">
                         <p class="ion-margin ion-text-start">v{{version}}</p>
@@ -41,7 +40,7 @@
                     </ion-button>
                 </ion-toolbar>
             </ion-footer>
-        </ion-menu>
+        </ion-menu> -->
         <ion-router-outlet id="menu-content"></ion-router-outlet>
     </ion-split-pane>
 </ion-app>

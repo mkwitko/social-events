@@ -60,7 +60,6 @@ export class UserClass {
         change = true;
       }
       if (change) {
-        console.log('update ', a);
         this.update(a);
       }
     }

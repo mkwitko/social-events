@@ -31,7 +31,6 @@ export class AuthService {
     private userClass: UserClass
   ) {
     this.auth = getAuth();
-    console.log(this.auth);
   }
 
   async login(user: User) {
@@ -111,7 +110,6 @@ export class AuthService {
             })
             .catch((err) => {
               this.screen.presentToast(this.translante.verifyErrors(err.code));
-              console.log(err);
             })
             .finally(() => {
               this.screen.dismissloading();
